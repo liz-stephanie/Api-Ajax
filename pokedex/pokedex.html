@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+   <title>Pokedex</title>
+<style type="text/css">
+      *{
+margin: 5px;
+
+}
+
+#name{
+text-transform:uppercase;
+margin-top:10px;
+}
+#all{
+
+    width:1000px;
+    height: 4000px;
+    background-color:#C655F9 ;
+}
+.cosa{
+
+    width: 110px;
+    height: 110px;
+    background-color:#CE7AF4; 
+    border-radius: 10px;
+    border-color:#8805C4 ;
+}
+
+.container{
+display: inline-block;
+width: 600px;
+border-color: black;
+}
+
+#right{
+height: 100px;
+width: 500px;
+display: inline-block;
+vertical-align: top;
+text-align: center;
+}
+
+#cuadrito{
+    width: 279px;
+    height: 550px;
+    text-align: center;
+   left: 100px;
+   border-style: bold;
+   display: inline-block;
+   position: absolute;
+}
+
+.overlay{
+    background-color: #D7BAFA;
+    width: 450px;
+    height: 550px;
+    display:inline-block;
+    margin-left: 600px;
+    top: 100px;
+    position:absolute;
+    border-radius: 20px;
+    font-size:22px;
+    font-family:cursive ;
+
+}
+
+#tittle{
+    font-style:bold cursive;
+    font-size: 20px;
+    position: relative;
+    top: 16px;
+}
+.tabla{
+margin-left: 35px;
+}
+#pokemonimagen{
+width: 130px;
+height: 130px;
+padding: 48px;
+background-color: #D687FA;
+border-radius: 20px;
+margin: 15px;
+}
+.tabla tr td {
+padding-right: 20px;
+size: 10px;
+}  
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+        var output = "";
+        var src = "";
+        $(document).ready(function(){
+            for (var i = 1; i <= 150; i++) {
+                src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + i + '.png'
+                output = '<img id='+i+' class="cosa" src="' + src + '">';
+                $('.container').append(output);
+            }            
+        });
+            $(document).on("click", ".cosa", function(){
+
+                var myid= $(this).attr("id");
+                
+                $.get("https://pokeapi.co/api/v2/pokemon/"+myid, function(res){
+                    $("#name").html(res.name);   
+                      //imagen
+                    var img = "http://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+res.id+".png";
+                    console.log("id: "+res.id+" img : "+img);
+                     //imagen
+                     $('#pokemonimagen').attr("src",img);
+                    var types="";
+
+                    $("#type").text(res.types[0].type.name);
+
+                    $("#weight").text(res.weight);
+
+                    $("#height").text(res.height);
+
+                }, "json");          
+            });
+
+            
+</script>
+
+</body>
+<div id="all">
+     <div class="container"> <img src="titulo.png">   
+     </div> 
+     <div class="img"></div>
+         <div id="right"> 
+                    <div id="cuadrito" class="overlay">
+
+                        <h2 id="tittle">Nombre</h2>
+                        <h3 id="name">...</h3>
+                        <img src="white.jpg" id="pokemonimagen">
+                        <table class="tabla">
+                        <td>tipo</td>
+                        <td>Peso</td>
+                        <td>Altura</td>
+                        </tr>
+                        <tr>
+                         <td><p id="type">...</p></td>
+                         <td><p id="weight">...</p></td>
+                         <td><p id="height">...</p></td>
+                        </tr>                                                
+                        </table>
+                    </div>
+
+        </div>
+</div>
+
+</body>
+</html>
