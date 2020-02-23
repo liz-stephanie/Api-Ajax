@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+     <style type="text/css">
+         *{
+margin: 10px;   
+}
+
+img{
+width: 300px;
+height: 200px;
+}
+#show{
+    width: 335px;
+    text-align:center;
+    border: 5px solid:#B4D7F7;
+    font-family:cursive;
+    font-size: 25px;
+    margin-left: 20px;
+}
+#container{
+background: url("background.jpg");
+}
+
+.container2{
+text-align:center;
+
+
+}
+#boton{
+width: 293px;
+margin-left: 24px;
+font-size: 20px;
+}
+
+#box{
+
+width: 500px;
+height: 700px;
+margin-left: 600px;
+text-align: center;
+padding:50px;
+color: white;
+font-size: 20px;
+
+}
+
+.placeholder{
+width: 288px;
+height: 46px;
+font-size: 20px;
+}
+p{
+font-size: 40px; 
+color: white;
+font-style: cursive;
+text-align: center;
+}
+     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>El tiempo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+       $(document).ready(function() {
+                 $("#boton").click(function(){
+                 var ciudad = $("#ciudad").val();
+                if (ciudad != '') {
+                   $.get("http://api.openweathermap.org/data/2.5/weather?q="+ciudad+"&appid=95281832574a0d8e6b9906ce0627cade", function(data){
+                     console.log(data.name);
+                         var showall= show(data);
+                         $("#show").html(showall);
+                         function show(data){
+                                return "<h5>"+data.name+"</h5>"+"<h5>Tiempo:"+data.weather[0].description+"</h5>"+"<h5>Temperatura:"+data.main.temp+"°Grados Celsius</h5>"+"<h5>Humedad relativa del aire:"+data.main.humidity+"%</h5>"+"<h5>Viento:"+data.wind.speed+"km/hora</h5>"                
+                 }
+            
+         }, 'json');
+         }
+      });   
+    });     
+ 
+</script> 
+   </head>
+<body>
+<div id="container">
+    <div id="box">
+     <h1 class="header">El Tiempo</h1>
+            <p>Seleccione su ciudad</p>
+         <div><input class="placeholder" type ="text" id="ciudad" placeholder="Introduzca ciudad"></input>
+         <div class="container2">
+         <div class="row">
+         <div class="col-4">                
+        <button id="boton">Buscar</button>
+             <div id="show"></div>
+             <div>
+             </div>
+            </div> 
+        </div> 
+
+    </body>
+</html>
